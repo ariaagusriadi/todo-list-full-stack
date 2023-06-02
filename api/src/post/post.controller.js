@@ -1,9 +1,12 @@
 const express = require("express");
 const { getAllPost, createPost, editPostByid } = require("./post.service");
 const { deletePost } = require("./post.repository");
+const verifyToken = require("../user/middleware/verifyToken");
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+
+
+router.get("/", verifyToken, async (req, res) => {
   try {
     const posts = await getAllPost();
     res.send({
